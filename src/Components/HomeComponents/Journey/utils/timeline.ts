@@ -1,26 +1,21 @@
 import gsap from "gsap";
 import { levelAnimate } from "./levelAnimate";
-// import { level2 } from './level2'
-// import { level3 } from './level3'
-// import { level4 } from './level4'
+
 import {
   DivElement,
   DivElementArray,
   ImageElement,
   ImageElementArray,
 } from "./types";
-import { Power1 } from "gsap";
 
 export type TimelineProps = {
   RocketLayer: ImageElementArray;
   LevelDesc: DivElementArray;
-  Earth: ImageElement;
   Rocket: DivElement;
 };
 
 export const timeline = ({
   Rocket,
-  Earth,
   RocketLayer,
   LevelDesc,
 }: TimelineProps) => {
@@ -35,8 +30,7 @@ export const timeline = ({
     .add(levelAnimate({ RocketLayer: RocketLayer[2], LevelDesc: LevelDesc[2] }))
     .add(breakOff(RocketLayer[2]))
     .add(vibrate(Rocket),'-=2')
-    .add(levelAnimate({ RocketLayer: RocketLayer[3], LevelDesc: LevelDesc[3] }))
-    .add(planetEntry(Earth));
+    .add(levelAnimate({ RocketLayer: RocketLayer[3], LevelDesc: LevelDesc[3] }),'+=2')
   return tl;
 };
 
@@ -72,24 +66,4 @@ function breakOff(RocketLayer: ImageElement) {
     
   });
 }
-function planetEntry(Earth: DivElement) {
-  const tl = gsap.timeline();
-  try {
-    tl.fromTo(
-      Earth.current,{opacity:0},{opacity:0}
-    )
-    tl.from(Earth.current,
-      {
-        opacity: 0,
-        yPercent: -50,
-        xPercent: -50,
-        scale: 0,
-        rotate: -360,
-      },
-      "-=0.5"
-    );
-  } catch (error) {
-    console.log(error);
-  }
-  return tl;
-}
+
