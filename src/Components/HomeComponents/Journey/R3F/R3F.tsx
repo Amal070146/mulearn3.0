@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { Texture, TextureLoader, Color } from "three";
 
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import earthTextureSrc from "../../assets/earthTexture.jpg";
+import earthTextureSrc from "../assets/earthTexture.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 interface ThreeDProps {

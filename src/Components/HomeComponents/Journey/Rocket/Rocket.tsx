@@ -1,8 +1,8 @@
-import level4 from "../../../assets/level4.png";
-import level3 from "../../../assets/level3.png";
-import level2 from "../../../assets/level2.png";
-import level1 from "../../../assets/level1.png";
-import pointer from "../../../assets/pointer.svg";
+import level4 from "../assets/level4.png";
+import level3 from "../assets/level3.png";
+import level2 from "../assets/level2.png";
+import level1 from "../assets/level1.png";
+import pointer from "../assets/pointer.svg";
 import RStyle from "./Rocket.module.css";
 import LStyle from "./LevelDesc.module.css";
 import { levels } from "./LevelData";
