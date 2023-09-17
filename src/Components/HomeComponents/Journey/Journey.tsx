@@ -1,8 +1,8 @@
-// import EarthImage from '../../assets/earth.svg'
+import EarthImage from './assets/earthTexture.jpg'
 
 import Rocket, { LevelDescriptions } from "./Rocket/Rocket";
 import { timeline } from "./utils/timeline";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef,useState } from "react";
 import gsap from "gsap";
 import Style from "./Journey.module.css";
 import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
@@ -10,7 +10,7 @@ import ThreeD from "./R3F/R3F";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 const Journey = () => {
-  const Journey = useRef<HTMLElement>(null);
+  const JourneyCont = useRef<HTMLElement>(null);
   const JourneyHead = useRef<HTMLHeadingElement>(null);
   // Rocket Container Reference
   const RocketRef = useRef<HTMLDivElement>(null);
@@ -34,7 +34,7 @@ const Journey = () => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: Journey.current,
+          trigger: JourneyCont.current,
           start: "top top",
           end: "bottom+=3000 top",
           markers: true,
@@ -44,7 +44,7 @@ const Journey = () => {
       });
       gsap.from(JourneyHead.current, {
         scrollTrigger: {
-          trigger: Journey.current,
+          trigger: JourneyCont.current,
           start: "top bottom",
           end: "top top",
           scrub: true,
@@ -55,17 +55,23 @@ const Journey = () => {
     });
     return () => ctx.revert();
   }, [LevelDesc, RocketLayer]);
+  const [rocketHeightState, setH] = useState(0);
+  const rocketHeight = JourneyHead.current?.offsetHeight; 
+  const windowHeight = window.innerHeight;
+  useEffect(() => {
+    setH(windowHeight-(rocketHeight?rocketHeight:0));
+  }, [rocketHeight, windowHeight]);
   return (
-    <section className={Style.Journey} ref={Journey}>
+    <section className={Style.Journey} ref={JourneyCont}>
       <div className={Style.canvasContainer}>
-        <ThreeD Journey={Journey} />
+        <ThreeD Journey={JourneyCont} />
       </div>
       <h2 className={Style.headerText} ref={JourneyHead}>
         Journey at µLearn
       </h2>
-      <div className={Style.journeyBodyContainer}>
-        <div className={Style.journeyBody}>
-          {/* <img src={EarthImage} alt="Earth" className={Style.earth} id='earth' ref={Earth} /> */}
+      <div className={Style.journeyBodyContainer} >
+        <div className={Style.journeyBody} style={{ height: rocketHeightState }}>
+          <img src={EarthImage} alt="Earth" className={Style.earth} id='earth' ref={Earth} />
           <Rocket rocket={RocketRef} RocketLayer={RocketLayer} />
           <LevelDescriptions LevelDesc={LevelDesc} Rocket={RocketRef} />
         </div>
