@@ -75,6 +75,28 @@ export const LevelDescriptions: FC<LevelDescProps> = ({
           </div>
         </div>
       ))}
+      <div
+          className={`${LStyle.levelDescContainerLater} ${LStyle.levelDescContainer}`}
+          ref={LevelDesc[4]}
+        >
+          <img src={pointer} className={LStyle.pointer} alt="pointer" />
+          <h3>{`Level 5`}</h3>
+          <div className={LStyle.levelDescContainerSub}>
+            <h4>{levels[0].heading}</h4>
+            <p>{levels[0].description}</p>
+          </div>
+        </div>
+        <div
+          className={`${LStyle.levelDescContainerLater} ${LStyle.levelDescContainer}`}
+          ref={LevelDesc[5]}
+        >
+          <img src={pointer} className={LStyle.pointer} alt="pointer" />
+          <h3>{`Level 6`}</h3>
+          <div className={LStyle.levelDescContainerSub}>
+            <h4>{levels[0].heading}</h4>
+            <p>{levels[0].description}</p>
+          </div>
+        </div>
     </div>
   );
 };

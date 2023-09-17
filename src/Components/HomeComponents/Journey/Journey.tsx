@@ -20,8 +20,10 @@ const Journey = () => {
   const LevelDesc2 = useRef<HTMLDivElement>(null);
   const LevelDesc3 = useRef<HTMLDivElement>(null);
   const LevelDesc4 = useRef<HTMLDivElement>(null);
+  const LevelDesc5 = useRef<HTMLDivElement>(null);
+  const LevelDesc6 = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const LevelDesc = [LevelDesc1, LevelDesc2, LevelDesc3, LevelDesc4];
+  const LevelDesc = [LevelDesc1, LevelDesc2, LevelDesc3, LevelDesc4, LevelDesc5,LevelDesc6];
   const Container= useRef<HTMLDivElement>(null);
   
   const props: ThreeDProps ={

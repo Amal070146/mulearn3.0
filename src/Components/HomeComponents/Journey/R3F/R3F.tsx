@@ -34,7 +34,8 @@ const CanvasAnimation: React.FC<ThreeDProps> = (props) => {
     JourneyHead,
     RocketRef,
     Container,
-    RocketLayer
+    RocketLayer,
+    LevelDesc
   }= props;
   const Earth = useRef(null);
   const { scene,camera } = useThree();
@@ -100,7 +101,18 @@ const CanvasAnimation: React.FC<ThreeDProps> = (props) => {
         ],
         duration:1
       },'-=0.2')
+      .from(LevelDesc[4].current, {
+        x:'+=100',
+      })
+      .to(LevelDesc[4].current, {
+        opacity:1,
+        x:'-=100',
+      })
+      .to(RocketRef.current, {
+        y:'-=100',
+      },'-=1')
     })
+    
     return () => ctx.revert();
   }, []);
   useFrame(() => {
