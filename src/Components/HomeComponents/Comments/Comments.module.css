@@ -1,0 +1,83 @@
+.comments {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.comments h2 {
+    font-weight: 700;
+    font-size: 3rem;
+    background: linear-gradient(
+        180deg,
+        #ffffff 60%,
+        rgba(255, 255, 255, 0.2) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.cardContainer {
+    width: 100vw;
+
+    -webkit-mask-image: linear-gradient(
+        0.25turn,
+        transparent,
+        white 20% 80%,
+        transparent
+    );
+}
+
+/* .cardContainer::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-image: linear-gradient(
+        0.25turn,
+        rgba(0, 0, 0, 0.25),
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0.25)
+    );
+} */
+
+.card {
+    height: 300px;
+    width: min(450px, 90vw);
+
+    padding: 2rem;
+    margin: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: start;
+
+    border-radius: 19.882px;
+    border: 0.298px solid #727272;
+    background: linear-gradient(
+        112deg,
+        rgba(38, 38, 38, 0.5) 5.3%,
+        rgba(38, 38, 38, 0) 98.31%
+    );
+    box-shadow: 0px 31.81065px 48.71006px -21.86982px rgba(0, 0, 0, 0.25);
+}
+
+.card p {
+    color: #aaa;
+}
+
+.card span {
+    background: linear-gradient(142deg, #2e85fe 32.82%, #af2ee6 114.24%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    width: fit-content;
+    font-size: 1.25rem;
+}
+
+@media (max-width: 500px) {
+    .cardContainer {
+        -webkit-mask-image: none;
+    }
+}
