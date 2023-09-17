@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap');
-.earth{
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap");
+.earth {
     width: 90%;
     height: 90%;
     position: absolute;
@@ -8,19 +8,19 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
 }
-.journeyBodyContainer{
+.journeyBodyContainer {
     display: flex;
     flex: 1 1 auto;
     justify-content: center;
     align-items: center;
 }
-.canvasContainer{
+.canvasContainer {
     position: absolute;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
 }
-.journeyBody{
+.journeyBody {
     position: relative;
     aspect-ratio: 1 / 1;
     height: 100%;
@@ -28,31 +28,44 @@
     align-items: center;
     overflow: hidden;
 }
-.Journey{
+.Journey {
     height: 100vh;
     width: 100vw;
     background-color: #1e1e1e;
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow-y: hidden;
 }
-  .headerText {
+.headerText {
     padding: 20px;
     flex-shrink: 0;
     text-align: center;
     text-shadow: 0px 1px 0px hsla(0, 0%, 0%, 0.07);
-    background: rgb(255,255,255);
-    background: -moz-linear-gradient(0deg, rgba(255,255,255,0) 15%, rgba(255,255,255,1) 50%);
-    background: -webkit-linear-gradient(0deg, rgba(255,255,255,0) 15%, rgba(255,255,255,1) 50%);
-    background: linear-gradient(0deg, rgba(255,255,255,0) 15%, rgba(255,255,255,1) 50%);
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0) 15%,
+        rgba(255, 255, 255, 1) 50%
+    );
+    background: -webkit-linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0) 15%,
+        rgba(255, 255, 255, 1) 50%
+    );
+    background: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0) 15%,
+        rgba(255, 255, 255, 1) 50%
+    );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#ffffff",GradientType=1);
     -webkit-background-clip: text !important;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 700;
     color: transparent;
     font-size: clamp(1vh, 10vw, 50px);
     text-align: center;
     overflow: visible;
-  }
+}
