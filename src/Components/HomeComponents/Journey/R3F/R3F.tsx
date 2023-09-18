@@ -1,30 +1,44 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
 import gsap from "gsap";
-import { Texture, TextureLoader, Color } from "three";
+import { Texture, TextureLoader } from "three";
 
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger, MotionPathPlugin } from "gsap/all";
 import earthTextureSrc from "../assets/earthTexture.jpg";
+import { timeline } from "../utils/timeline";
 
-gsap.registerPlugin(ScrollTrigger);
-interface ThreeDProps {
+gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+
+export interface ThreeDProps {
   Journey: React.RefObject<HTMLElement>;
+  JourneyHead: React.RefObject<HTMLHeadingElement>;
+  RocketRef: React.RefObject<HTMLDivElement>;
+  RocketLayer: React.RefObject<HTMLImageElement>[];
+  LevelDesc: React.RefObject<HTMLDivElement>[];
+  Container: React.RefObject<HTMLDivElement>;
 }
-const ThreeD: React.FC<ThreeDProps> = ({ Journey }) => {
+const ThreeD: React.FC<ThreeDProps> = (props) => {
   return (
-    <Canvas camera={{ position: [0, 0, 30] }}>
-      <Stars radius={300} />
-      <CanvasAnimation Journey={Journey} />
+    <Canvas camera={{ position: [0, 0, 30] }}  > 
+      <CanvasAnimation {...props} />
       <ambientLight intensity={0.5} />
       <directionalLight position={[1, 1, 1]} />
     </Canvas>
   );
 };
 
-const CanvasAnimation: React.FC<ThreeDProps> = ({ Journey }) => {
+
+const CanvasAnimation: React.FC<ThreeDProps> = (props) => {
+  const { 
+    Journey,
+    JourneyHead,
+    RocketRef,
+    Container,
+    RocketLayer,
+    LevelDesc
+  }= props;
   const Earth = useRef(null);
-  const { scene, gl, camera } = useThree();
+  const { scene,camera } = useThree();
   const mesh = scene.children.find((child) => child.type === "Mesh");
   const [earthTexture, setEarthTexture] = useState<Texture>();
   useEffect(() => {
@@ -34,25 +48,76 @@ const CanvasAnimation: React.FC<ThreeDProps> = ({ Journey }) => {
           trigger: Journey.current,
           start: "top top",
           end: "bottom+=3000 top",
+          markers: true,
+          pin: true,
           scrub: true,
         },
       });
-      tl.fromTo(
-        camera.position,
-        {
-          y: -300,
+      gsap.from(JourneyHead.current, {
+        scrollTrigger: {
+          trigger: Journey.current,
+          start: "top bottom",
+          end: "top top",
+          scrub: true,
         },
-        {
-          y: 300,
-        }
-      );
-    });
+        yPercent: -250,
+      });
+      tl.add(timeline({ Rocket: RocketRef,...props }))
+      .fromTo(camera.position,{
+        x: -800,
+        z:1000
+      }, {
+        keyframes: [
+          {x: -800,z: 600,},
+          {x: -600,z: 400,},
+          {x: -400,z: 200,},
+          {x: -200,z: 100,},
+          {x: 0,z: 28,},
+        ]
+      })
+      .to(Container.current, {
+        onStart: () => {
+          gsap.to([RocketLayer[0].current, RocketLayer[1].current, RocketLayer[2].current], {
+            position:'absolute',
+            opacity:1
+          })
+          gsap.to(RocketRef.current, {
+            transformOrigin: `${(Container.current?.offsetHeight as number)/2}px 0`,
+            height:'fit-content',
+          })
+          
+        },
+        onReverseComplete: () => {
+          gsap.to([RocketLayer[0].current, RocketLayer[1].current, RocketLayer[2].current], {
+            position:'relative'
+          })
+        },
+        keyframes: [
+          {rotate:'+=72'},
+          {rotate:'+=72'},
+          {rotate:'+=72'},
+          {rotate:'+=72'},
+          {rotate:'+=72'},
+        ],
+        duration:1
+      },'-=0.2')
+      .from(LevelDesc[4].current, {
+        x:'+=100',
+      })
+      .to(LevelDesc[4].current, {
+        opacity:1,
+        x:'-=100',
+      })
+      .to(RocketRef.current, {
+        y:'-=100',
+      },'-=1')
+    })
+    
     return () => ctx.revert();
-  }, [Journey, camera]);
+  }, []);
   useFrame(() => {
     if (mesh) {
-      // mesh.rotation.x += 0.0011;
-      mesh.rotation.y += 0.005;
+      mesh.rotation.y += 0.01;
     }
   });
 
@@ -63,26 +128,11 @@ const CanvasAnimation: React.FC<ThreeDProps> = ({ Journey }) => {
       setEarthTexture(texture);
     });
 
-    // Set the background color of the renderer
-    gl.setClearColor(new Color("#000000"));
-  }, [gl]);
+  }, []);
 
   return (
     <>
-      {/* Sun (Directional Light) */}
-      <directionalLight position={[5, 0, 0]} intensity={0.2} />
-
-      {/* Ambient Light */}
-      <ambientLight intensity={0.05} />
-
-      <pointLight
-        position={[-1.1, 0, 0]}
-        distance={0.5}
-        intensity={0.5}
-        color="#aaffff"
-      />
-
-      <mesh position={[0, 300, -28]} ref={Earth}>
+      <mesh position={[0, 0, -28]} ref={Earth}>
         <sphereGeometry args={[20, 64, 64]} />
         {earthTexture && <meshStandardMaterial map={earthTexture} />}
       </mesh>

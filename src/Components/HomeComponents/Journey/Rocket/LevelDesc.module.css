@@ -48,3 +48,10 @@
     word-wrap: break-word;
     font-size: 13px;
 }
+.levelDescContainerLater{
+    position: absolute;
+    opacity: 0;
+}
+.levelDescContainerLater .pointer{
+    opacity: 0;
+}

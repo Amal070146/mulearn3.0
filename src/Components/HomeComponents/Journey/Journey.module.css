@@ -31,13 +31,14 @@
 .Journey {
     height: 100vh;
     width: 100vw;
-    background-color: #1e1e1e;
+    background-color: #1e1e1e00;
     display: flex;
     flex-direction: column;
     position: relative;
     overflow-y: hidden;
 }
 .headerText {
+    margin: 0;
     padding: 20px;
     flex-shrink: 0;
     text-align: center;
@@ -68,4 +69,13 @@
     font-size: clamp(1vh, 10vw, 50px);
     text-align: center;
     overflow: visible;
+}
+
+#CircleMap{
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 }
