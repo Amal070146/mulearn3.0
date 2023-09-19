@@ -16,7 +16,7 @@ interface RocketProps {
 const Rocket = ({ rocket, RocketLayer }: RocketProps) => {
   const [RocketLayer1, RocketLayer2, RocketLayer3, RocketLayer4] = RocketLayer;
   return (
-    <div className={RStyle.rocket} id="rocket" ref={rocket}>
+    <div className={RStyle.rocket}  ref={rocket}>
       <img
         src={level4}
         alt="Rocket Level 4"
