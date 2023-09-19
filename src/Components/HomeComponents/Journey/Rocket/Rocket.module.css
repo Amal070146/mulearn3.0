@@ -3,11 +3,12 @@
 .rocket{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    max-height: 100%;
     position: relative;
     width: 50%;
-    overflow: hidden;
+    overflow-y: hidden;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 .rocketLayer{
     object-fit: contain;
